@@ -29,9 +29,25 @@ class CheckoutController extends Controller
         if (empty($addresses)) {
             return redirect()->route('customer.addresses.create')->with('error', 'Please add a shipping address first.');
         }
+        $subtotal = 0;
+        foreach ($cartItems as $item) {
+            $product = $item['product'] ?? [];
+            $subtotal += (float)($product['price'] ?? 0) * (int)($item['quantity'] ?? 0);
+        }
+        $deliveryPayload = ['delivery_charge' => 0, 'delivery_sla_hours' => 24, 'threshold_amount' => 2000];
+        try {
+            $deliveryResponse = $this->api->get('checkout/delivery-charge', ['subtotal' => $subtotal]);
+            $deliveryPayload = $deliveryResponse;
+        } catch (\Throwable) {
+            $deliveryPayload['delivery_charge'] = $subtotal < 2000 ? 100 : 0;
+        }
         return view('checkout.show', [
             'items' => $cartItems,
             'addresses' => is_array($addresses) ? $addresses : [],
+            'subtotal' => $subtotal,
+            'delivery_charge' => (float)($deliveryPayload['delivery_charge'] ?? ($subtotal < 2000 ? 100 : 0)),
+            'delivery_sla_hours' => (int)($deliveryPayload['delivery_sla_hours'] ?? 24),
+            'threshold_amount' => (float)($deliveryPayload['threshold_amount'] ?? 2000),
         ]);
     }
 

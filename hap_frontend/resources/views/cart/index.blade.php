@@ -30,7 +30,7 @@
             @endphp
             <tr>
                 <td>{{ $product['name'] ?? 'Product' }}</td>
-                <td>${{ number_format($price, 2) }}</td>
+                <td>{{ money_inr($price) }}</td>
                 <td>
                     <form method="POST" action="{{ route('cart.items.update', $item['id']) }}" class="d-inline">
                         @csrf
@@ -38,7 +38,7 @@
                         <input type="number" name="quantity" value="{{ $qty }}" min="1" class="form-control form-control-sm d-inline-block" style="width: 70px;" onchange="this.form.submit()">
                     </form>
                 </td>
-                <td>${{ number_format($subtotal, 2) }}</td>
+                <td>{{ money_inr($subtotal) }}</td>
                 <td>
                     <form method="POST" action="{{ route('cart.items.destroy', $item['id']) }}" class="d-inline" onsubmit="return confirm('Remove this item?');">
                         @csrf

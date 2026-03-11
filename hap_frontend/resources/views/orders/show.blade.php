@@ -10,9 +10,25 @@
     </ol>
 </nav>
 <h1 class="mb-4">Order {{ $order['order_number'] ?? $order['id'] }}</h1>
-<p><strong>Status:</strong> <span class="badge bg-primary">{{ $order['order_status'] ?? '' }}</span></p>
+@php
+    $status = $order['order_status'] ?? '';
+    $steps = ['pending_payment' => 'Payment Pending', 'confirmed' => 'Confirmed', 'packed' => 'Packed', 'shipped' => 'Shipped', 'delivered' => 'Delivered', 'cancelled' => 'Cancelled'];
+    $orderStep = array_search($status, array_keys($steps));
+@endphp
+<div class="mb-4">
+    <strong>Status:</strong> <span class="badge bg-primary">{{ $steps[$status] ?? $status }}</span>
+</div>
+<div class="mb-3">
+    <small class="text-muted d-block">Order timeline</small>
+    <div class="d-flex flex-wrap gap-2 mt-1">
+        @foreach(array_slice(array_keys($steps), 0, 5) as $i => $s)
+        <span class="badge {{ $i <= $orderStep ? 'bg-success' : 'bg-light text-dark' }}">{{ $steps[$s] }}</span>
+        @if($i < 4)<span class="text-muted">→</span>@endif
+        @endforeach
+    </div>
+</div>
 <p><strong>Date:</strong> {{ isset($order['order_date']) ? \Carbon\Carbon::parse($order['order_date'])->format('F j, Y g:i A') : '' }}</p>
-<p><strong>Total:</strong> ${{ number_format((float) ($order['total_amount'] ?? 0), 2) }}</p>
+<p><strong>Total:</strong> {{ money_inr((float)($order['total_amount'] ?? 0)) }} @if(!empty($order['delivery_charge']))<small class="text-muted">(incl. {{ money_inr($order['delivery_charge']) }} delivery)</small>@endif</p>
 
 @if(!empty($order['shipping_address']))
 <h2 class="h6 mt-4">Shipping address</h2>
@@ -30,7 +46,7 @@
     @php $product = $item['product'] ?? []; @endphp
     <li class="list-group-item d-flex justify-content-between align-items-center">
         <span>{{ $product['name'] ?? 'Product' }} x {{ $item['quantity'] ?? 0 }}</span>
-        <span>${{ number_format((float) ($item['subtotal'] ?? 0), 2) }}</span>
+        <span>{{ money_inr((float)($item['subtotal'] ?? 0)) }}</span>
     </li>
     @endforeach
 </ul>

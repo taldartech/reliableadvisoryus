@@ -53,10 +53,25 @@
                 @endphp
                 <li class="list-group-item d-flex justify-content-between">
                     <span>{{ $product['name'] ?? 'Product' }} x {{ $qty }}</span>
-                    <span>${{ number_format($price * $qty, 2) }}</span>
+                    <span>{{ money_inr($price * $qty) }}</span>
                 </li>
                 @endforeach
             </ul>
+            <div class="list-group list-group-flush mb-3">
+                <div class="list-group-item d-flex justify-content-between">
+                    <span>Subtotal</span>
+                    <span>{{ money_inr($subtotal ?? 0) }}</span>
+                </div>
+                <div class="list-group-item d-flex justify-content-between">
+                    <span>Delivery</span>
+                    <span>{{ money_inr($delivery_charge ?? 0) }} @if(($delivery_charge ?? 0) == 0)<small class="text-muted">(Free delivery – order above {{ money_inr($threshold_amount ?? 2000) }})</small>@endif</span>
+                </div>
+                <div class="list-group-item d-flex justify-content-between fw-bold">
+                    <span>Total</span>
+                    <span>{{ money_inr(($subtotal ?? 0) + ($delivery_charge ?? 0)) }}</span>
+                </div>
+            </div>
+            @if(!empty($delivery_sla_hours))<p class="small text-muted">{{ $delivery_sla_hours }}-hour delivery</p>@endif
             <button type="submit" class="btn btn-primary btn-lg">Place order</button>
         </div>
     </div>

@@ -45,6 +45,43 @@ class AuthController extends Controller
         return redirect()->intended(route('home'))->with('success', 'Logged in successfully.');
     }
 
+    public function sendOtp(Request $request): RedirectResponse
+    {
+        $request->validate(['email' => ['required', 'email']]);
+        try {
+            $this->api->post('auth/send-otp', [
+                'identifier' => $request->email,
+                'identifier_type' => 'email',
+            ]);
+        } catch (\Illuminate\Http\Client\RequestException $e) {
+            $body = $e->response?->json();
+            return back()->withInput($request->only('email'))->with('error', $body['message'] ?? 'Could not send OTP.');
+        }
+        return back()->withInput($request->only('email'))->with('otp_sent', true)->with('success', 'OTP sent to your email.');
+    }
+
+    public function verifyOtp(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'email' => ['required', 'email'],
+            'otp' => ['required', 'string', 'size:6'],
+        ]);
+        try {
+            $response = $this->api->post('auth/verify-otp', [
+                'identifier' => $request->email,
+                'otp' => $request->otp,
+            ]);
+        } catch (\Illuminate\Http\Client\RequestException $e) {
+            $body = $e->response?->json();
+            return back()->withInput($request->only('email'))->with('error', $body['message'] ?? 'Invalid or expired OTP.');
+        }
+        if (! empty($response['token'])) {
+            session(['hap_token' => $response['token'], 'hap_user' => $response['user'] ?? null]);
+            return redirect()->intended(route('home'))->with('success', 'Logged in successfully.');
+        }
+        return back()->withInput($request->only('email'))->with('error', $response['message'] ?? 'OTP verified. Complete registration with a password.');
+    }
+
     public function showRegisterForm(): View
     {
         return view('auth.register');
