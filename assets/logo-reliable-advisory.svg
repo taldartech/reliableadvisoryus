@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0d1528"/>
+      <stop offset="100%" stop-color="#060c18"/>
+    </radialGradient>
+    <radialGradient id="glowGold" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c8a84a" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#c8a84a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="600" height="400" fill="url(#bgGrad)"/>
+
+  <g opacity="0.04" stroke="#c8a84a" stroke-width="0.5">
+    <line x1="0" y1="66" x2="600" y2="66"/>
+    <line x1="0" y1="133" x2="600" y2="133"/>
+    <line x1="0" y1="200" x2="600" y2="200"/>
+    <line x1="0" y1="266" x2="600" y2="266"/>
+    <line x1="0" y1="333" x2="600" y2="333"/>
+    <line x1="100" y1="0" x2="100" y2="400"/>
+    <line x1="200" y1="0" x2="200" y2="400"/>
+    <line x1="300" y1="0" x2="300" y2="400"/>
+    <line x1="400" y1="0" x2="400" y2="400"/>
+    <line x1="500" y1="0" x2="500" y2="400"/>
+  </g>
+
+  <ellipse cx="155" cy="200" rx="90" ry="90" fill="url(#glowGold)"/>
+
+  <circle cx="155" cy="200" r="78" fill="none" stroke="#b4964a" stroke-width="0.8" opacity="0.4"/>
+  <circle cx="155" cy="200" r="68" fill="none" stroke="#b4964a" stroke-width="0.4" opacity="0.2"/>
+
+  <polygon points="155,121 158,124 155,127 152,124" fill="#b4964a" opacity="0.8"/>
+  <polygon points="155,273 158,276 155,279 152,276" fill="#b4964a" opacity="0.8"/>
+  <polygon points="77,200 80,203 77,206 74,203" fill="#b4964a" opacity="0.5"/>
+  <polygon points="233,200 236,203 233,206 230,203" fill="#b4964a" opacity="0.5"/>
+
+  <path d="M155 138 L196 155 L196 192 C196 222 178 242 155 252 C132 242 114 222 114 192 L114 155 Z"
+    fill="rgba(10,20,45,0.8)" stroke="#c8a84a" stroke-width="1.6" filter="url(#glow)"/>
+
+  <path d="M155 145 L190 160 L190 192 C190 219 174 237 155 246 C136 237 120 219 120 192 L120 160 Z"
+    fill="rgba(180,150,74,0.07)"/>
+
+  <text x="155" y="211" text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="38" font-weight="bold"
+    fill="#c8a84a" letter-spacing="3"
+    filter="url(#softGlow)">RA</text>
+
+  <text x="155" y="235" text-anchor="middle"
+    font-family="Georgia, serif" font-size="9"
+    fill="#b4964a" opacity="0.7">&#x2726;</text>
+
+  <text x="250" y="178" font-family="Georgia, 'Times New Roman', serif"
+    font-size="44" font-weight="normal" letter-spacing="10"
+    fill="#e8dfc8" text-anchor="start">RELIABLE</text>
+
+  <text x="252" y="225" font-family="Georgia, 'Times New Roman', serif"
+    font-size="44" font-weight="bold" letter-spacing="10"
+    fill="#c8a84a" text-anchor="start" filter="url(#softGlow)">ADVISORY</text>
+
+  <line x1="250" y1="238" x2="550" y2="238" stroke="#b4964a" stroke-width="0.7" opacity="0.5"/>
+  <polygon points="400,233 404,238 400,243 396,238" fill="#b4964a" opacity="0.6"/>
+  <line x1="250" y1="243" x2="550" y2="243" stroke="#b4964a" stroke-width="0.3" opacity="0.25"/>
+
+  <text x="400" y="262" text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="11" letter-spacing="5"
+    fill="#8a7a5a">FINANCIAL SERVICES LLC</text>
+
+  <text x="300" y="318" text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="14" font-style="italic"
+    fill="#c0b080" opacity="0.9">
+    Where Trust Meets Strategy, and Your Future Begins.
+  </text>
+
+  <line x1="80" y1="340" x2="520" y2="340" stroke="#b4964a" stroke-width="0.5" opacity="0.2"/>
+
+  <text x="300" y="360" text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="9" letter-spacing="4"
+    fill="#5a5040" opacity="0.9">
+    PROTECTING WEALTH  &#xb7;  BUILDING LEGACIES  &#xb7;  SECURING FUTURES
+  </text>
+</svg>
