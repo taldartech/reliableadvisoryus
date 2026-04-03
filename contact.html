@@ -80,9 +80,12 @@
           </div>
         </div>
         <div class="col-lg-7">
-          <form class="ra-form service-card" id="contact-form" action="#" method="get">
+          <form class="ra-form service-card" id="contact-form" action="mailto:info@reliableadvisory.com" method="post" enctype="text/plain">
             <h3 style="letter-spacing:0.12em;margin-bottom:1rem;">Send a Message</h3>
-            <p class="small mb-4" style="color:#7a7060;">Submitting opens your email client with this message. For a hosted form, connect a service such as Formspree or your CRM later.</p>
+            <p class="small mb-4" style="color:#7a7060;">
+              Submitting opens your email client with your message. With JavaScript enabled, we prefill a cleaner subject/body automatically.
+              <noscript>JavaScript is disabled: your browser will attempt to open an email draft using the form fields (behavior varies by browser).</noscript>
+            </p>
             <div class="mb-3">
               <label class="form-label" for="name">Name</label>
               <input type="text" class="form-control" id="name" name="name" required autocomplete="name">
